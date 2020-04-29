@@ -7,6 +7,7 @@ import { SafeAreaView, Text } from 'react-native'
 
 import { HomeScreen } from './ui/screens/home'
 import { CreateGroupScreen } from './ui/screens/create-group'
+import { GroupsScreen } from './ui/screens/groups'
 
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
@@ -42,14 +43,14 @@ function GroupsStack() {
         headerShown: true,
       }}
     >
-      {/* <Stack.Screen
-        component={ShowGroupsScreen}
-        name={'ShowGroups'}
-        options={{ title: 'ShowGroups' }}
-      /> */}
       <Stack.Screen
         component={CreateGroupScreen}
         name={'CreateGroup'}
+        options={{ title: 'Novo Grupo' }}
+      />
+      <Stack.Screen
+        component={GroupsScreen}
+        name={'Groups'}
         options={{ title: 'Grupos' }}
       />
     </Stack.Navigator>

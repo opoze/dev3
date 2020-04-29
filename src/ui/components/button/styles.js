@@ -10,8 +10,11 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#42a5f5',
-    color: '#fff',
     padding: 15,
     borderRadius: 15,
   },
+  buttonText: {
+    color: '#fff',
+    fontSize: 15,
+  }
 })
