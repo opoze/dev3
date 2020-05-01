@@ -42,16 +42,16 @@ function GroupsStack() {
         headerBackTitleVisible: true,
         headerShown: true,
       }}
-    >
-      <Stack.Screen
-        component={CreateGroupScreen}
-        name={'CreateGroup'}
-        options={{ title: 'Novo Grupo' }}
-      />
+      >
       <Stack.Screen
         component={GroupsScreen}
         name={'Groups'}
         options={{ title: 'Grupos' }}
+      />
+      <Stack.Screen
+        component={CreateGroupScreen}
+        name={'CreateGroup'}
+        options={{ title: 'Novo Grupo' }}
       />
     </Stack.Navigator>
   )
