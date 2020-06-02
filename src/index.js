@@ -8,7 +8,8 @@ import { SafeAreaView, Text } from 'react-native'
 import { HomeScreen } from './ui/screens/home'
 import { CreateGroupScreen } from './ui/screens/create-group'
 import { GroupsScreen } from './ui/screens/groups'
-
+import { Login } from './ui/screens/login'
+import { Register } from './ui/screens/register'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 const BottomTab = createBottomTabNavigator()
@@ -26,8 +27,48 @@ function HomeStack() {
     >
       <Stack.Screen
         component={HomeScreen}
-        name={'Home'}
-        options={{ title: 'Home' }}
+        name={'HomeScreen'}
+        options={{ title: 'HomeScreen' }}
+      />
+    </Stack.Navigator>
+  )
+}
+
+function LoginStack() {
+  const Stack = createStackNavigator()
+
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: true,
+        headerShown: true,
+      }}
+    >
+      <Stack.Screen
+        component={Login}
+        name={'Login'}
+        options={{ title: 'Login' }}
+      />
+    </Stack.Navigator>
+  )
+}
+
+function RegisterStack() {
+  const Stack = createStackNavigator()
+
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: true,
+        headerShown: true,
+      }}
+    >
+      <Stack.Screen
+        component={Register}
+        name={'Register'}
+        options={{ title: 'Register' }}
       />
     </Stack.Navigator>
   )
@@ -78,6 +119,17 @@ function MainTabs() {
           return {
             title: 'Grupos',
             tabBarIcon: () => <Icon name={'group'} size={20} />,
+            tabBarVisible: true,
+          }
+        }}
+      />
+      <BottomTab.Screen
+        component={LoginStack}
+        name={'LoginStack'}
+        options={() => {
+          return {
+            title: 'Login',
+            tabBarIcon: () => <Icon name={'login'} size={20} />,
             tabBarVisible: true,
           }
         }}
