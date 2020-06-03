@@ -10,6 +10,7 @@ import { CreateGroupScreen } from './ui/screens/create-group'
 import { GroupsScreen } from './ui/screens/groups'
 import { Login } from './ui/screens/login'
 import { Register } from './ui/screens/register'
+import { Profile } from './ui/screens/edit-profile'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 const BottomTab = createBottomTabNavigator()
@@ -74,6 +75,26 @@ function RegisterStack() {
   )
 }
 
+function ProfileStack() {
+  const Stack = createStackNavigator()
+
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: true,
+        headerShown: true,
+      }}
+    >
+      <Stack.Screen
+        component={Profile}
+        name={'Profile'}
+        options={{ title: 'Edit Profile' }}
+      />
+    </Stack.Navigator>
+  )
+}
+
 function GroupsStack() {
   const Stack = createStackNavigator()
   return (
@@ -124,7 +145,7 @@ function MainTabs() {
         }}
       />
       <BottomTab.Screen
-        component={LoginStack}
+        component={RegisterStack}
         name={'LoginStack'}
         options={() => {
           return {

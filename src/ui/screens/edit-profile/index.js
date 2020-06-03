@@ -2,66 +2,64 @@ import React, {useState} from 'react'
 import styles from './styles'
 import {View, Text, TextInput, Button} from 'react-native'
 
-const RegisterView = () => {
+const ProfileView = ({props}) => {
 
   const [username, setUsername] = useState(true);
   const [password, setPassword] = useState(true);
-  const [passwordConfirmation, setPasswordConfirmation] = useState(true);
 
   return (
     <View style={styles.container}>
-    <Text style={styles.baseText}>Username</Text>
+
+      <Text style={styles.baseText}>Nome Apresentação</Text>
       <TextInput
-        placeholder = "Enter your username"
+        value='Teste Bot'
         style={{ height: 40, width: 300, margin: 10, borderColor: 'gray', borderWidth: 1}}
         onChangeText={text => {setUsername(text), console.log('username',username)}}
       />
-     <Text style={styles.baseText}>Email</Text>
+
+      <Text style={styles.baseText}>Username</Text>
       <TextInput
-        placeholder = "Enter your email"
+        value='teste123'
         style={{ height: 40, width: 300, margin: 10, borderColor: 'gray', borderWidth: 1}}
         onChangeText={text => {setUsername(text), console.log('username',username)}}
+      />
+
+      <Text style={styles.baseText}>Email</Text>
+      <TextInput
+        value= 'teste@gmail.com'
+        style={{ height: 40, width: 300, margin: 10, borderColor: 'gray', borderWidth: 1}}
+        onChangeText={text => {setPassword(text), console.log('password', password)}}
       />
       <Text style={styles.baseText}>Password</Text>
       <TextInput
         secureTextEntry={true}
-        placeholder = "Enter your password"
+        value= 'password'
         style={{ height: 40, width: 300, margin: 10, borderColor: 'gray', borderWidth: 1}}
         onChangeText={text => {setPassword(text), console.log('password', password)}}
       />
-      <TextInput
-              secureTextEntry={true}
-              placeholder = "Repeat your password"
-              style={{ height: 40, width: 300, margin: 10, borderColor: 'gray', borderWidth: 1}}
-              onChangeText={text => {setPassword(text), console.log('password', password)}}
-            />
+      <Text style={styles.baseText}></Text>
       <View style={{flexDirection:'row', flexWrap:'wrap'}}>
-
-       <Button
-          title="Create New Account"
-          color='#000000'
-          onPress={() => createAccount()}
-        />
         <Button
-            title="Sign In"
-            display= 'inline-block'
-            onPress={() => navigation.navigate('Login')}
-          />
+          title="Save"
+          color='#000000'
+          display= 'inline-block'
+          onPress={() => this.props.navigation.navigate('Login')}
+        />
+       <Button
+          title="Cancel"
+          color='#808080'
+          onPress={() => this.props.navigation.navigate('Register')}
+        />
       </View>
     </View>
   )
 }
 
-function createAccount(){
-  //manda request com o state para o backend
-}
-
-export function Register() {
-  return (
+export function Profile() {
+  return(
     <View style={styles.container}>
-      <View style={styles.container}>
-        <RegisterView></RegisterView>
-      </View>
+      <ProfileView></ProfileView>
     </View>
   )
 }
+

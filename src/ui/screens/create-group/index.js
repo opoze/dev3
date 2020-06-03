@@ -5,6 +5,8 @@ import { View, TextInput, Text, Alert } from 'react-native'
 import { Button } from '../../components/button'
 
 function Input(props) {
+
+
   const { label, value, onChangeText, placeholder, invalid = false } = props
 
   return (
