@@ -29,7 +29,7 @@ function HomeStack() {
       <Stack.Screen
         component={HomeScreen}
         name={'HomeScreen'}
-        options={{ title: 'HomeScreen' }}
+        options={{ title: 'Eeduca App' }}
       />
     </Stack.Navigator>
   )
@@ -145,7 +145,7 @@ function MainTabs() {
         }}
       />
       <BottomTab.Screen
-        component={RegisterStack}
+        component={LoginStack}
         name={'LoginStack'}
         options={() => {
           return {

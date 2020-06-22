@@ -5,9 +5,10 @@ import {View, Text} from 'react-native'
 export function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text>
-        HomeScreen
+      <Text size="100">
+        Bem Vindo Nome
       </Text>
+
     </View>
   )
 }

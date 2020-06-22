@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import styles from './styles'
-import {View, Text, TextInput, Button} from 'react-native'
-
+import {View, Text, TextInput} from 'react-native'
+import { Button } from '../../components/button'
 const RegisterView = () => {
 
   const [username, setUsername] = useState(true);
@@ -38,12 +38,12 @@ const RegisterView = () => {
       <View style={{flexDirection:'row', flexWrap:'wrap'}}>
 
        <Button
-          title="Create New Account"
+          title='Create New Account'
           color='#000000'
           onPress={() => createAccount()}
         />
         <Button
-            title="Sign In"
+            title='Sign In'
             display= 'inline-block'
             onPress={() => navigation.navigate('Login')}
           />
@@ -56,12 +56,21 @@ function createAccount(){
   //manda request com o state para o backend
 }
 
-export function Register() {
+export function Register({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.container}>
         <RegisterView></RegisterView>
       </View>
+      <View style={styles.container}>
+            <View style={{ margin: 10 }}>
+              <Button
+                label="Login"
+                title="Login"
+                onPress={() => navigation.navigate('LoginStack')}
+              />
+            </View>
+          </View>
     </View>
   )
 }
