@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import styles from './styles'
 import { View, TextInput, Text, Alert } from 'react-native'
+import axios from 'axios';
 
 import { Button } from '../../components/button'
 
-function Input(props) {
+function Input(props, nav) {
 
 
   const { label, value, onChangeText, placeholder, invalid = false } = props
@@ -32,7 +33,7 @@ function Input(props) {
   )
 }
 
-export function CreateGroupScreen() {
+export function CreateGroupScreen({navigation}) {
 
   const [name, setName] = useState('')
   const [nameInvalid, setNameInvalid] = useState(false)
@@ -59,14 +60,36 @@ export function CreateGroupScreen() {
 
   return (
     <View style={styles.container}>
-      <Input
+      <Input nav={navigation}
         label='Nome:'
         value={name}
         placeholder='Nome do grupo'
         onChangeText={onChangeGroupName}
         invalid={nameInvalid}
       />
-      <Button label='Cadastrar' onPress={onSubmit} disabled={isSubmiting}/>
+      <Button label='Cadastrar' onPress={createGroup(navigation, name)}/>
     </View>
   )
 }
+function createGroup(nav, nome, key){
+  axios({
+    method: 'post',
+    url: 'http://eeducaapi.azurewebsites.net/api/Grupos/Novo',
+    headers: {},
+    data: {
+       "Nome": nome,
+       "Authorization": key
+    }
+  })
+  .then(function (response) {
+    if(response.status == 200){
+      Alert.alert("Grupo Criado com Sucesso!")
+    }
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+    //Alert.alert("Credenciais de Email ou Senha inválidas")
+  })
+  .then(nav.navigate('GroupsStack'))
+ }

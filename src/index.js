@@ -122,17 +122,16 @@ function GroupsStack() {
 function MainTabs() {
   return (
     <BottomTab.Navigator tabBarOptions={{ showLabel: false }}>
-      <BottomTab.Screen
-        component={HomeStack}
-        name={'HomeStack'}
-        options={() => {
-          return {
-            title: 'Home',
-            tabBarIcon: () => <Icon name={'home'} size={20} />,
-            tabBarVisible: true,
-          }
-        }}
-      />
+       <BottomTab.Screen
+              component={LoginStack}
+              name={'LoginStack'}
+              options={() => {
+                return {
+                  title: 'Login',
+                  tabBarVisible: false,
+                }
+              }}
+            />
       <BottomTab.Screen
         component={GroupsStack}
         name={'GroupsStack'}
@@ -145,16 +144,26 @@ function MainTabs() {
         }}
       />
       <BottomTab.Screen
-        component={LoginStack}
-        name={'LoginStack'}
+        component={Profile}
+        name={'ProfileStack'}
         options={() => {
           return {
-            title: 'Login',
-            tabBarIcon: () => <Icon name={'login'} size={20} />,
+            title: 'ProfileStack',
+            tabBarIcon: () => <Icon name={'ProfileStack'} size={20} />,
             tabBarVisible: true,
           }
         }}
       />
+       <BottomTab.Screen
+          component={RegisterStack}
+          name={'RegisterStack'}
+          options={() => {
+            return {
+              title: 'Register',
+              tabBarVisible: false,
+            }
+          }}
+        />
     </BottomTab.Navigator>
   )
 }

@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import styles from './styles'
-import {View, Text, TextInput, Button} from 'react-native'
+import {View, Text, TextInput} from 'react-native'
+import { Button } from '../../components/button'
 
-const ProfileView = ({props}) => {
+const ProfileView = ({nav}) => {
 
   const [username, setUsername] = useState(true);
   const [password, setPassword] = useState(true);
@@ -13,13 +14,6 @@ const ProfileView = ({props}) => {
       <Text style={styles.baseText}>Nome Apresentação</Text>
       <TextInput
         value='Teste Bot'
-        style={{ height: 40, width: 300, margin: 10, borderColor: 'gray', borderWidth: 1}}
-        onChangeText={text => {setUsername(text), console.log('username',username)}}
-      />
-
-      <Text style={styles.baseText}>Username</Text>
-      <TextInput
-        value='teste123'
         style={{ height: 40, width: 300, margin: 10, borderColor: 'gray', borderWidth: 1}}
         onChangeText={text => {setUsername(text), console.log('username',username)}}
       />
@@ -38,28 +32,62 @@ const ProfileView = ({props}) => {
         onChangeText={text => {setPassword(text), console.log('password', password)}}
       />
       <Text style={styles.baseText}></Text>
-      <View style={{flexDirection:'row', flexWrap:'wrap'}}>
-        <Button
-          title="Save"
-          color='#000000'
-          display= 'inline-block'
-          onPress={() => this.props.navigation.navigate('Login')}
-        />
-       <Button
-          title="Cancel"
-          color='#808080'
-          onPress={() => this.props.navigation.navigate('Register')}
-        />
-      </View>
+       <View style={{ margin: 10, flexDirection:'row'}}>
+              <Button
+                label="Salvar"
+                title="Salvar"
+                onPress={() => createAccount(nav, nome, email, password)}
+              />
+              <Button
+                label="Cancelar"
+                title="Cancelar"
+                onPress={() => nav.navigate('GroupsStack')}
+              />
+            </View>
     </View>
   )
 }
 
-export function Profile() {
+export function Profile({navigation}) {
   return(
     <View style={styles.container}>
-      <ProfileView></ProfileView>
+      <ProfileView nav={navigation}></ProfileView>
     </View>
   )
 }
+
+function editProfile(nav, nome, email, password){
+  if(nome == ""){
+    Alert.alert("Favor preencher o campo nome.")
+  } else if(email == ""){
+    Alert.alert("Favor preencher o campo de email.")
+  } else if (password == ""){
+    Alert.alert("Favor preencher o campo de senha.")
+  } else{
+  //console.log(nome, email, password);
+  //nav.navigate('RegisterStack') //SE DER CERTO ENVIA PARA A TELA
+    axios({
+        method: 'put',
+        url: 'http://eeducaapi.azurewebsites.net/api/Usuarios/????',
+        headers: {},
+        data: {
+          	"Email": email,
+          	"Nome": nome,
+          	"Senha": password
+        }
+      })
+      .then(function (response) {
+        if(response.status == 200){
+          Alert.alert("Usuário Registrado com Sucesso!")
+        }
+      })
+      .catch(function (error) {
+        // handle error
+        //console.log(error);
+        Alert.alert("Credenciais de Email ou Senha inválidas")
+      })
+      .then(nav.navigate('LoginStack'))
+  }
+}
+
 

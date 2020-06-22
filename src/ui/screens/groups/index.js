@@ -13,13 +13,13 @@ const MOCK_TEST_GROUP = {
   users: 6,
 }
 
-const GROUPS = Array(10).fill(MOCK_TEST_GROUP)
+//const GROUPS = Array(10).fill(MOCK_TEST_GROUP)
 
 function Group(props) {
-  const { name, date, description, chave, users } = props
+ const { name, date, description, chave, users } = props
 
-  console.log('@T', props)
-
+  //console.log('@T', props)
+  console.log("props", props);
   function renderContent() {
     return (
       <View style={styles.groupContainer}>
@@ -49,11 +49,12 @@ function Group(props) {
   return renderContent()
 }
 
-export function GroupsScreen({ navigation }) {
+export function GroupsScreen({ key, navigation }) {
   return (
     <View style={styles.container}>
+
       <FlatList
-        data={GROUPS}
+        data={}
         renderItem={({ item }) => <Group {...item} />}
         keyExtractor={(item) => item.key}
         style={styles.list}
@@ -61,7 +62,10 @@ export function GroupsScreen({ navigation }) {
       <View style={{ margin: 10 }}>
         <Button
           label='Novo Grupo'
-          onPress={() => navigation.navigate('CreateGroup')}
+          onPress={() =>
+            //navigation.navigate('CreateGroup');
+            console.log(key)
+            }
         />
       </View>
     </View>

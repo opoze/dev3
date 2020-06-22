@@ -1,76 +1,91 @@
 import React, {useState} from 'react'
 import styles from './styles'
-import {View, Text, TextInput} from 'react-native'
+import {View, Text, TextInput, Alert} from 'react-native'
 import { Button } from '../../components/button'
-const RegisterView = () => {
+import axios from 'axios';
 
-  const [username, setUsername] = useState(true);
-  const [password, setPassword] = useState(true);
-  const [passwordConfirmation, setPasswordConfirmation] = useState(true);
+const RegisterView = ({nav}) => {
+
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <View style={styles.container}>
-    <Text style={styles.baseText}>Username</Text>
+    <Text style={styles.baseText}>Nome</Text>
       <TextInput
-        placeholder = "Enter your username"
+        placeholder = "Enter your nome"
         style={{ height: 40, width: 300, margin: 10, borderColor: 'gray', borderWidth: 1}}
-        onChangeText={text => {setUsername(text), console.log('username',username)}}
+        onChangeText={text => {setNome(text)}}
       />
      <Text style={styles.baseText}>Email</Text>
       <TextInput
         placeholder = "Enter your email"
         style={{ height: 40, width: 300, margin: 10, borderColor: 'gray', borderWidth: 1}}
-        onChangeText={text => {setUsername(text), console.log('username',username)}}
+        onChangeText={text => {setEmail(text)}}
       />
       <Text style={styles.baseText}>Password</Text>
       <TextInput
         secureTextEntry={true}
         placeholder = "Enter your password"
         style={{ height: 40, width: 300, margin: 10, borderColor: 'gray', borderWidth: 1}}
-        onChangeText={text => {setPassword(text), console.log('password', password)}}
+        onChangeText={text => {setPassword(text)}}
       />
-      <TextInput
-              secureTextEntry={true}
-              placeholder = "Repeat your password"
-              style={{ height: 40, width: 300, margin: 10, borderColor: 'gray', borderWidth: 1}}
-              onChangeText={text => {setPassword(text), console.log('password', password)}}
-            />
-      <View style={{flexDirection:'row', flexWrap:'wrap'}}>
-
-       <Button
-          title='Create New Account'
-          color='#000000'
-          onPress={() => createAccount()}
+      <View style={{ margin: 10, flexDirection:'row'}}>
+        <Button
+          label="Create new Account"
+          title="Create new Account"
+          onPress={() => createAccount(nav, nome, email, password)}
         />
         <Button
-            title='Sign In'
-            display= 'inline-block'
-            onPress={() => navigation.navigate('Login')}
-          />
+          label="Login"
+          title="Login"
+          onPress={() => nav.navigate('LoginStack')}
+        />
       </View>
     </View>
   )
-}
-
-function createAccount(){
-  //manda request com o state para o backend
 }
 
 export function Register({ navigation }) {
   return (
     <View style={styles.container}>
-      <View style={styles.container}>
-        <RegisterView></RegisterView>
-      </View>
-      <View style={styles.container}>
-            <View style={{ margin: 10 }}>
-              <Button
-                label="Login"
-                title="Login"
-                onPress={() => navigation.navigate('LoginStack')}
-              />
-            </View>
-          </View>
+      <RegisterView nav={navigation}></RegisterView>
     </View>
   )
 }
+function createAccount(nav, nome, email, password){
+  if(nome == ""){
+    Alert.alert("Favor preencher o campo nome.")
+  } else if(email == ""){
+    Alert.alert("Favor preencher o campo de email.")
+  } else if (password == ""){
+    Alert.alert("Favor preencher o campo de senha.")
+  } else{
+  //console.log(nome, email, password);
+  //nav.navigate('RegisterStack') //SE DER CERTO ENVIA PARA A TELA
+    axios({
+        method: 'post',
+        url: 'http://eeducaapi.azurewebsites.net/api/Usuarios/Registrar',
+        headers: {},
+        data: {
+          	"Email": email,
+          	"Nome": nome,
+          	"Senha": password
+        }
+      })
+      .then(function (response) {
+        if(response.status == 200){
+          Alert.alert("Usuário Registrado com Sucesso!")
+        }
+      })
+      .catch(function (error) {
+        // handle error
+        //console.log(error);
+        Alert.alert("Credenciais de Email ou Senha inválidas")
+      })
+      .then(nav.navigate('LoginStack'))
+  }
+}
+
+
