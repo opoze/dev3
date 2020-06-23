@@ -4,6 +4,7 @@ import { View, TextInput, Text, Alert } from 'react-native'
 import axios from 'axios';
 
 import { Button } from '../../components/button'
+import AuthService from '../../../services/auth'
 
 function Input(props, nav) {
 

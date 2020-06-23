@@ -7,60 +7,20 @@ import axios from 'axios'
 import { Button } from '../../components/button'
 import AuthService from '../../../services/auth'
 
-function Group(props) {
-
-  const { Nome, DataHoraCriacao, descricao, Chave, users, Id } = props
-
-  function goToGroup() {
-    AuthService.selectedGroupId(Id)
-    navigation.navigate('Group')
-  }
-
-  function renderContent() {
-    return (
-      <TouchableOpacity onPress={() => goToGroup()} >
-        <View style={styles.groupContainer}>
-          <Image
-            source={require('../../../res/images/no-image.jpg')}
-            style={styles.groupImage}
-            />
-          <View style={styles.infoContainer}>
-            <View style={styles.line}>
-              <Text style={styles.nameText}>{Nome}</Text>
-              <Text style={styles.userText}>{`${users} users`}</Text>
-            </View>
-            <View style={styles.line}>
-              <Text style={styles.keyText}>{Chave}</Text>
-              <Text style={styles.dateText}>{DataHoraCriacao}</Text>
-            </View>
-            <View style={styles.line}>
-              <Text style={styles.descriptionText} numberOfLines={3}>
-                {descricao}
-              </Text>
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
-    )
-  }
-
-  return renderContent()
-}
-
-export function GroupsScreen({ key, navigation }) {
+export function Group({ key, navigation }) {
 
   const [groups, setGroups] = useState([])
   const [gettingGroups, setGettingGroups] = useState(false)
 
   useEffect(() => {
-    getUserGroups()
+    getGroup(AuthService.selectedGroupId)
   }, [])
 
-  function getUserGroups() {
+  function getGroup() {
     setGettingGroups(true)
     axios({
       method: 'get',
-      url: 'https://eeducaapi.azurewebsites.net/api/Grupos/Listar',
+      url: 'https://eeducaapi.azurewebsites.net/api/Grupos/Listar?group_id',
       headers: {Authorization: `Bearer ${AuthService.token}`, 'Content-Type': 'application/json'},
     })
     .then(function (response) {

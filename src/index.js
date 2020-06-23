@@ -5,7 +5,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import { SafeAreaView, Text } from 'react-native'
 
-import { HomeScreen } from './ui/screens/home'
 import { CreateGroupScreen } from './ui/screens/create-group'
 import { GroupsScreen } from './ui/screens/groups'
 import { Login } from './ui/screens/login'
@@ -15,25 +14,6 @@ import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 const BottomTab = createBottomTabNavigator()
 
-function HomeStack() {
-  const Stack = createStackNavigator()
-
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerTitleAlign: 'center',
-        headerBackTitleVisible: true,
-        headerShown: true,
-      }}
-    >
-      <Stack.Screen
-        component={HomeScreen}
-        name={'HomeScreen'}
-        options={{ title: 'Eeduca App' }}
-      />
-    </Stack.Navigator>
-  )
-}
 
 function LoginStack() {
   const Stack = createStackNavigator()
@@ -43,7 +23,7 @@ function LoginStack() {
       screenOptions={{
         headerTitleAlign: 'center',
         headerBackTitleVisible: true,
-        headerShown: true,
+        headerShown: false,
       }}
     >
       <Stack.Screen
@@ -149,7 +129,7 @@ function MainTabs() {
         options={() => {
           return {
             title: 'ProfileStack',
-            tabBarIcon: () => <Icon name={'ProfileStack'} size={20} />,
+            tabBarIcon: () => <Icon name={'reorder'} size={20} />,
             tabBarVisible: true,
           }
         }}
