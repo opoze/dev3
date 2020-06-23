@@ -5,14 +5,14 @@ import { View, Text, FlatList, Image, ActivityIndicator, Alert, SafeAreaView, To
 import axios from 'axios'
 
 import { Button } from '../../components/button'
-import AuthService from '../../../services/auth'
+import authService from '../../../services/auth'
+import api from '../../../services/api'
 
 function Group(props) {
-
   const { Nome, DataHoraCriacao, descricao, Chave, users, Id } = props
 
   function goToGroup() {
-    AuthService.selectedGroupId(Id)
+    authService.selectedGroupId(Id)
     navigation.navigate('Group')
   }
 
@@ -47,7 +47,7 @@ function Group(props) {
   return renderContent()
 }
 
-export function GroupsScreen({ key, navigation }) {
+export function GroupsScreen({ navigation }) {
 
   const [groups, setGroups] = useState([])
   const [gettingGroups, setGettingGroups] = useState(false)
@@ -58,24 +58,12 @@ export function GroupsScreen({ key, navigation }) {
 
   function getUserGroups() {
     setGettingGroups(true)
-    axios({
-      method: 'get',
-      url: 'https://eeducaapi.azurewebsites.net/api/Grupos/Listar',
-      headers: {Authorization: `Bearer ${AuthService.token}`, 'Content-Type': 'application/json'},
-    })
-    .then(function (response) {
-      if(response.status == 200){
-        console.log(response)
-        setGroups(response.data)
-        setGettingGroups(false)
-        Alert.alert("Não foi possivel buscar os grupos. " + response.status)
-      }
-    })
-    .catch(function (error) {
-      console.log(error)
+    Api.defaults.headers.common['Authorization'] = `Bearer ${authService.token}`;
+    const response = await Api.get('/Grupos/Listar');
+    if(response.status == 200){
+      setGroups(response.data)
       setGettingGroups(false)
-      Alert.alert("Não foi possivel buscar os grupos.")
-    })
+    }
   }
 
   if(gettingGroups) {
