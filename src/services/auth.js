@@ -20,7 +20,6 @@ class AuthService {
   setSelectedGroup(code){
     this.selectedGroupId = code
   }
-
 }
 
 export default new AuthService()

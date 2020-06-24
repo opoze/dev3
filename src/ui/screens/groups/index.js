@@ -12,8 +12,9 @@ function Group(props) {
   const { Nome, DataHoraCriacao, descricao, Chave, users, Id } = props
 
   function goToGroup() {
-    authService.selectedGroupId(Id)
-    navigation.navigate('Group')
+    authService.setSelectedGroup(Id)
+    navigation.navigate('GroupScreen')
+    //NAO FUNCIONA O NAVIGATION
   }
 
   function renderContent() {

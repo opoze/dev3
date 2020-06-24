@@ -7,13 +7,14 @@ import { SafeAreaView, Text } from 'react-native'
 
 import { CreateGroupScreen } from './ui/screens/create-group'
 import { GroupsScreen } from './ui/screens/groups'
+import { GroupScreen } from './ui/screens/group'
+import { CreateMensagemScreen } from './ui/screens/create-mensagem'
 import { Login } from './ui/screens/login'
 import { Register } from './ui/screens/register'
 import { Profile } from './ui/screens/edit-profile'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 const BottomTab = createBottomTabNavigator()
-
 
 function LoginStack() {
   const Stack = createStackNavigator()
@@ -23,7 +24,7 @@ function LoginStack() {
       screenOptions={{
         headerTitleAlign: 'center',
         headerBackTitleVisible: true,
-        headerShown: false,
+        headerShown: true,
       }}
     >
       <Stack.Screen
@@ -49,7 +50,7 @@ function RegisterStack() {
       <Stack.Screen
         component={Register}
         name={'Register'}
-        options={{ title: 'Register' }}
+        options={{ title: 'Cadastro de Novo Usuário' }}
       />
     </Stack.Navigator>
   )
@@ -69,7 +70,7 @@ function ProfileStack() {
       <Stack.Screen
         component={Profile}
         name={'Profile'}
-        options={{ title: 'Edit Profile' }}
+        options={{ title: 'Edição de Usuário' }}
       />
     </Stack.Navigator>
   )
@@ -94,6 +95,44 @@ function GroupsStack() {
         component={CreateGroupScreen}
         name={'CreateGroup'}
         options={{ title: 'Novo Grupo' }}
+      />
+    </Stack.Navigator>
+  )
+}
+
+function GroupStack() {
+  const Stack = createStackNavigator()
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: true,
+        headerShown: true,
+      }}
+      >
+      <Stack.Screen
+        component={GroupScreen}
+        name={'Group'}
+        options={{ title: 'Grupo' }}
+      />
+    </Stack.Navigator>
+  )
+}
+
+function MensagensStack() {
+  const Stack = createStackNavigator()
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: true,
+        headerShown: true,
+      }}
+      >
+      <Stack.Screen
+        component={CreateMensagemScreen}
+        name={'CreateMensagem'}
+        options={{ title: 'Nova Mensagem' }}
       />
     </Stack.Navigator>
   )

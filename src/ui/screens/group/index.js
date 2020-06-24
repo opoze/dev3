@@ -5,40 +5,38 @@ import { View, Text, FlatList, Image, ActivityIndicator, Alert, SafeAreaView, To
 import axios from 'axios'
 
 import { Button } from '../../components/button'
-import AuthService from '../../../services/auth'
+import authService from '../../../services/auth'
+import api from '../../../services/api'
 
 export function Group({ key, navigation }) {
 
-  const [groups, setGroups] = useState([])
-  const [gettingGroups, setGettingGroups] = useState(false)
+  const [mensagens, setMensagens] = useState([])
+  const [gettingMensagens, setGettingMensagens] = useState(false)
 
   useEffect(() => {
     getGroup(AuthService.selectedGroupId)
   }, [])
 
-  function getGroup() {
-    setGettingGroups(true)
-    axios({
-      method: 'get',
-      url: 'https://eeducaapi.azurewebsites.net/api/Grupos/Listar?group_id',
-      headers: {Authorization: `Bearer ${AuthService.token}`, 'Content-Type': 'application/json'},
-    })
-    .then(function (response) {
-      if(response.status == 200){
-        console.log(response)
-        setGroups(response.data)
-        setGettingGroups(false)
-        Alert.alert("Não foi possivel buscar os grupos. " + response.status)
-      }
-    })
+  function getMensagens() {
+    setGettingMensagens(true)
+    api.defaults.headers.common['Authorization'] = `Bearer ${authService.token}`;
+    api.get('/Grupos/ListarMensagens', null, { params: {GrupoId: authService.selectedGroupId}})
+        .then((response) => {
+          if(response.status == 200){
+            console.log(response)
+            //setGroups(response.data)
+            //setGettingGroups(false)
+            //Alert.alert("Não foi possivel buscar as mensagens do grupo. " + response.status)
+          }
+        })
     .catch(function (error) {
       console.log(error)
-      setGettingGroups(false)
-      Alert.alert("Não foi possivel buscar os grupos.")
+      setGettingMensagens(false)
+      Alert.alert("Não foi possivel buscar as mensagens do grupo.")
     })
   }
 
-  if(gettingGroups) {
+  if(gettingMensagens) {
     return (
       <SafeAreaView style={styles.container}>
         <ActivityIndicator />
@@ -57,14 +55,14 @@ export function Group({ key, navigation }) {
             />
         }
         {(groups.length <= 0) &&
-          (<Text>:( Você não está em nenhum grupo.</Text>)
+          (<Text>:( Este grupo não contem nenhuma mensagem.</Text>)
         }
         <View style={{ margin: 10 }}>
           <Button
-            label='Novo Grupo'
+            label='Nova Mensagem'
             onPress={() =>
               // getUserGroups()
-              navigation.navigate('CreateGroup')
+              navigation.navigate('CreateMensagem')
             }
             />
         </View>

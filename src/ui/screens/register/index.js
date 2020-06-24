@@ -12,29 +12,29 @@ const RegisterView = ({nav}) => {
 
   return (
     <View style={styles.container}>
-    <Text style={styles.baseText}>Nome</Text>
+      <Text style={styles.baseText}>Nome</Text>
+        <TextInput
+          placeholder = "Digite seu nome"
+          style={{ height: 40, width: 300, margin: 10, borderColor: 'gray', borderWidth: 1}}
+          onChangeText={text => {setNome(text)}}
+        />
+      <Text style={styles.baseText}>Email</Text>
       <TextInput
-        placeholder = "Enter your nome"
-        style={{ height: 40, width: 300, margin: 10, borderColor: 'gray', borderWidth: 1}}
-        onChangeText={text => {setNome(text)}}
-      />
-     <Text style={styles.baseText}>Email</Text>
-      <TextInput
-        placeholder = "Enter your email"
+        placeholder = "Digite seu email"
         style={{ height: 40, width: 300, margin: 10, borderColor: 'gray', borderWidth: 1}}
         onChangeText={text => {setEmail(text)}}
       />
-      <Text style={styles.baseText}>Password</Text>
+      <Text style={styles.baseText}>Senha</Text>
       <TextInput
         secureTextEntry={true}
-        placeholder = "Enter your password"
+        placeholder = "Digite sua senha"
         style={{ height: 40, width: 300, margin: 10, borderColor: 'gray', borderWidth: 1}}
         onChangeText={text => {setPassword(text)}}
       />
       <View style={{ margin: 10, flexDirection:'row'}}>
         <Button
-          label="Create new Account"
-          title="Create new Account"
+          label="Criar Novo Usuário"
+          title="Criar Novo Usuário"
           onPress={() => createAccount(nav, nome, email, password)}
         />
         <Button
@@ -62,8 +62,6 @@ function createAccount(nav, nome, email, password){
   } else if (password == ""){
     Alert.alert("Favor preencher o campo de senha.")
   } else{
-  //console.log(nome, email, password);
-  //nav.navigate('RegisterStack') //SE DER CERTO ENVIA PARA A TELA
     axios({
         method: 'post',
         url: 'http://eeducaapi.azurewebsites.net/api/Usuarios/Registrar',
@@ -80,8 +78,6 @@ function createAccount(nav, nome, email, password){
         }
       })
       .catch(function (error) {
-        // handle error
-        //console.log(error);
         Alert.alert("Credenciais de Email ou Senha inválidas")
       })
       .then(nav.navigate('LoginStack'))
