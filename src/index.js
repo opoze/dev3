@@ -162,17 +162,6 @@ function MainTabs() {
           }
         }}
       />
-      <BottomTab.Screen
-        component={Profile}
-        name={'ProfileStack'}
-        options={() => {
-          return {
-            title: 'ProfileStack',
-            tabBarIcon: () => <Icon name={'reorder'} size={20} />,
-            tabBarVisible: true,
-          }
-        }}
-      />
        <BottomTab.Screen
           component={RegisterStack}
           name={'RegisterStack'}

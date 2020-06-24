@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import styles from './styles'
 import { View, Text, FlatList, Image, ActivityIndicator, Alert, SafeAreaView, TouchableOpacity } from 'react-native'
-
 import axios from 'axios'
-
 import { Button } from '../../components/button'
 import authService from '../../../services/auth'
 import api from '../../../services/api'
@@ -46,15 +44,15 @@ export function Group({ key, navigation }) {
 
   return (
       <SafeAreaView style={styles.container}>
-        {(groups.length > 0 )&&
+        {(mensagens.length > 0 )&&
           <FlatList
-            data={groups}
+            data={mensagens}
             renderItem={({ item }) => <Group {...item} />}
             keyExtractor={(item) => item.Id}
             style={styles.list}
             />
         }
-        {(groups.length <= 0) &&
+        {(mensagens.length <= 0) &&
           (<Text>:( Este grupo não contem nenhuma mensagem.</Text>)
         }
         <View style={{ margin: 10 }}>
