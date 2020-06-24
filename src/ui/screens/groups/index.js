@@ -57,13 +57,17 @@ export function GroupsScreen({ navigation }) {
   }, [])
 
   function getUserGroups() {
+    api.defaults.headers.common['Authorization'] = `Bearer ${authService.token}`;
+
     setGettingGroups(true)
-    Api.defaults.headers.common['Authorization'] = `Bearer ${authService.token}`;
-    const response = await Api.get('/Grupos/Listar');
-    if(response.status == 200){
-      setGroups(response.data)
-      setGettingGroups(false)
-    }
+    api.get('/Grupos/Listar').then((response) => {
+      console.log('RESPONSE:', response.data);
+
+      if(response.status == 200){
+        setGroups(response.data)
+        setGettingGroups(false)
+      }
+    });
   }
 
   if(gettingGroups) {

@@ -8,8 +8,8 @@ import AuthService from '../../../services/auth'
 
 const LoginView = ({props, nav}) => {
 
-  const [email, setEmail] = useState(true);
-  const [password, setPassword] = useState(true);
+  const [email, setEmail] = useState('teste@hotmail.com');
+  const [password, setPassword] = useState('teste');
   const [isLoging, setIsLoging] = useState(false)
 
   useEffect(() => {
@@ -21,6 +21,7 @@ const LoginView = ({props, nav}) => {
 
   function doLogin(email, password) {
     setIsLoging(true)
+    console.log(`LOGANDO ${email} ${password}`)
     axios({
       method: 'post',
       url: 'http://eeducaapi.azurewebsites.net/api/Usuarios/Login',
@@ -32,6 +33,7 @@ const LoginView = ({props, nav}) => {
     })
     .then(function (response) {
       if(response.status == 200){
+        console.log(response)
         AuthService.setUser(response.data, email)
         setIsLoging(false)
         nav.navigate('GroupsStack')
@@ -55,7 +57,6 @@ const LoginView = ({props, nav}) => {
           placeholder = "Enter your email"
           style={{ height: 40, width: 300, margin: 10, borderColor: 'gray', borderWidth: 1, color: '#000'}}
           onChangeText={text => {setEmail(text)}}
-          value={'teste@hotmail.com'}
           />
         <Text style={styles.baseText}>Password</Text>
         <TextInput
@@ -63,7 +64,6 @@ const LoginView = ({props, nav}) => {
           placeholder = "Enter your password"
           style={{ height: 40, width: 300, margin: 10, borderColor: 'gray', borderWidth: 1, color: '#000'}}
           onChangeText={text => {setPassword(text)}}
-          value={'teste'}
           />
         <View style={{ margin: 10, flexDirection:'row'}}>
           <Button
