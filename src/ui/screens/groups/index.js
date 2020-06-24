@@ -2,19 +2,16 @@ import React, {useState, useEffect} from 'react'
 import styles from './styles'
 import { View, Text, FlatList, Image, ActivityIndicator, Alert, SafeAreaView, TouchableOpacity } from 'react-native'
 
-import axios from 'axios'
-
 import { Button } from '../../components/button'
 import authService from '../../../services/auth'
 import api from '../../../services/api'
 
 function Group(props) {
-  const { Nome, DataHoraCriacao, descricao, Chave, users, Id } = props
+  const { Nome, DataHoraCriacao, Descricao, Chave, users, Id, navigation } = props
 
   function goToGroup() {
     authService.setSelectedGroup(Id)
-    navigation.navigate('GroupScreen')
-    //NAO FUNCIONA O NAVIGATION
+    navigation.navigate('Group', {Nome, Descricao});
   }
 
   function renderContent() {
@@ -36,7 +33,7 @@ function Group(props) {
             </View>
             <View style={styles.line}>
               <Text style={styles.descriptionText} numberOfLines={3}>
-                {descricao}
+                {Descricao}
               </Text>
             </View>
           </View>
@@ -84,7 +81,7 @@ export function GroupsScreen({ navigation }) {
         {(groups.length > 0 )&&
           <FlatList
             data={groups}
-            renderItem={({ item }) => <Group {...item} />}
+            renderItem={({ item }) => <Group {...item} navigation={navigation} />}
             keyExtractor={(item) => item.Id}
             style={styles.list}
             />
@@ -96,7 +93,6 @@ export function GroupsScreen({ navigation }) {
           <Button
             label='Novo Grupo'
             onPress={() =>
-              // getUserGroups()
               navigation.navigate('CreateGroup')
             }
             />

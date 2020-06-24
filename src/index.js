@@ -30,7 +30,7 @@ function LoginStack() {
       <Stack.Screen
         component={Login}
         name={'Login'}
-        options={{ title: 'Login' }}
+        options={{ title: 'EEDUCA App' }}
       />
     </Stack.Navigator>
   )
@@ -96,20 +96,6 @@ function GroupsStack() {
         name={'CreateGroup'}
         options={{ title: 'Novo Grupo' }}
       />
-    </Stack.Navigator>
-  )
-}
-
-function GroupStack() {
-  const Stack = createStackNavigator()
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerTitleAlign: 'center',
-        headerBackTitleVisible: true,
-        headerShown: true,
-      }}
-      >
       <Stack.Screen
         component={GroupScreen}
         name={'Group'}
@@ -142,15 +128,15 @@ function MainTabs() {
   return (
     <BottomTab.Navigator tabBarOptions={{ showLabel: false }}>
        <BottomTab.Screen
-              component={LoginStack}
-              name={'LoginStack'}
-              options={() => {
-                return {
-                  title: 'Login',
-                  tabBarVisible: false,
-                }
-              }}
-            />
+          component={LoginStack}
+          name={'LoginStack'}
+          options={() => {
+            return {
+              title: 'Login',
+              tabBarVisible: false,
+            }
+          }}
+        />
       <BottomTab.Screen
         component={GroupsStack}
         name={'GroupsStack'}
